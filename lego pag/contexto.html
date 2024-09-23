@@ -1,0 +1,372 @@
+<!--Esto es una pagina de legos del curso de platzi que se llama "Curso practico de maquetacion y animaciones con css"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap'); /*Esta es un tipo de fuente de google font*/
+
+        :root { /*los codigos de los colores los saco de la extencion de google  colorzilla*/
+            --yellow: #ffd602;
+            --red: #d5040a;
+            --blue: #036cb6;
+        }
+        body { 
+            font-family: 'Lato', sans-serif;
+            height: 100vh; /*esto es el 100 del ancho*/
+            margin: 0; /*esto es para que se salga el margen*/
+            overflow: hidden; /*esto es para que no se salga ningun elemento de la pantalla*/
+        }
+        .page {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+        }
+        .container { /*este seria el contenedor principal*/
+            position: absolute;
+            z-index: 1;
+
+            /*esto es para la dispocicion de la pagina que esta explicada con una captura en paint */
+            display: grid;
+            grid-template-columns: 55% 45%;
+            grid-template-rows: 20% 50% 30%;
+            grid-template-areas: "nav     aside"
+                                 "section aside"
+                                 " footer aside";
+            
+           height: 100%;
+           width: 100%;                  
+        }
+        .navbar { /*Esto es el fondito que tienen los supuestos botones*/
+            grid-area: nav;
+            display: flex;
+        }
+        .navbar_content { /*Estos son los botones */
+            display: flex; /*para poner uno al lado del otro*/
+            align-items: center;
+            width: 100%;
+            padding: 0 0 0 80px; 
+
+            animation: 2s navbar 0.5s ease-in-out; /*Esto es para que los botones bajen para abajo cuando se carga la pag, que es despues de 2s. le digo que demore 0.5 y le pongo la aceleracion*/
+        }
+        @keyframes navbar {
+            0% {
+                transform: translateY(-200px); /*Para que baje, por que empieza del borde*/
+            }
+            100% {
+                transform: translateY(0); /*0 es por que es el topo, hay se queda quieto */
+            }
+        }
+
+        .navbar_content img {
+            width: 50px;
+        }
+        .navbar_content ul { 
+            display: flex;
+            justify-content: space-evenly;
+            list-style: none;
+            padding: 0;
+            width: 450px;
+        }
+        .navbar_content ul li a { /*Esto es las palabras que tienen los botones */
+            color: var(--red);
+            font-weight: 300;
+            text-decoration: none;
+        }
+        .main-content {
+            grid-area: section; /*para poner los elementos en la misma area*/
+            display: flex; 
+            flex-direction: column; /*para que se vean uno abajo del otro*/
+            justify-content: center;
+            padding-left: 80px;
+
+            animation: 2s main-content 0.5s ease-in-out;
+        }
+        .main-content p:first-child { /*este es el textito que dice diseña tu */ 
+            font-size: 36px;
+            font-weight: 300;
+            margin: 0 0 -14px 44px;
+        }
+        .main-content h1 { /*este es el extito que dice super heroe*/
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 28px 0;
+        }
+        .main-content p:last-child { /*Este es el texto random de abajo */
+            font-weight: 100;
+            margin: 0;
+            width: 60%;
+        }
+        @keyframes main-content {
+            0% {
+                transform: translateY(-600px); /*Para que baje, por que empieza del borde*/
+            }
+            100% {
+                transform: translateY(0); /*0 es por que es el topo, hay se queda quieto */
+            }
+        }
+        .side-content { /*como diseñar esta parte de la pagina que es la que va a la derecha con el superman esta explicado pon paint con una captura */
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            align-items: center;
+            
+            grid-area: aside;
+        }
+        .side-content p { /*esto es el textito que dice superman*/
+            transform: rotate(-90deg); /*esto es para que quede acostado */
+            font-size: 36px;
+
+            grid-row: 1 / 2; /*esto es para que quede en las columnas explicadas en paint */
+            grid-column: 1 / 2; /*esto es para que quede en el medio de las columnas y filas del paint*/
+
+            opacity: 0;
+
+            animation-name: side-content-text; /*para animar el texto superman*/
+
+            animation-duration: 0.5s;  /*cuanto dura*/
+            animation-delay : 2.5s; /*cuanto tarda en salir*/
+            animation-timing-function:ease-in-out;  /*aceleracion*/
+            animation-fill-mode: forwards;  /*esto es para que cuando termine se quede en el ultimo estado*/
+        }
+        @keyframes side-content-text {  /*esto es lo de la animacion de el texto superman*/
+           0%{ /*aca empieza la animacion de el texto superman*/
+            opacity: 0;
+           }
+           100%{ /*aca termina la animacion del texto superman*/
+            opacity: 1;
+           }
+        }
+        .side-content img { /*esto es la imagen de superman*/
+            width: 100%; /*para el tamaño */
+            grid-column: 2 / 6; /*para la ubicacion explicada en paint de columnas*/
+            grid-row: 1 / 2; /*este tambien para la ubicacion de filas*/
+
+            animation: 2s side-content-img 0.5s ease-in-out; /*para que empiece despues de 2s, para que dure 0.5s y la aceleracion */
+        }
+        @keyframes side-content-img {
+            0% {
+                transform: translateX(600px); /*Para aparezca del costado*/
+            }
+            100% {
+                transform: translateX(0); /*0 es por que es el topo, hay se queda quieto */
+            }
+        }
+        .side-content div { /*esto es la franja amarilla atras del superman*/
+            background: var(--yellow);
+
+            grid-column: 4 / 7; /*la ubicacion de las columnas del paint*/
+            grid-row: 1 / 2; /*la ubicacion en filas del paint*/
+
+            height: 100%;
+        }
+        .footer { /*esto es el fondito amarillo de batman, siperman y robin*/
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-end;
+
+            background: var(--yellow);
+            border-radius: 0 80px 0 0;
+            transform: translateY(100%);
+            
+
+            animation-name: footer;
+            animation-duration:0.5s;
+            animation-delay:2.5s;
+            animation-timing-function:ease-in-out;
+            animation-fill-mode: forwards;
+        }
+        @keyframes footer {
+            0%{
+                transform: translateY(100%);
+            }
+            100%{
+                transform: translateY(0px);
+            }
+        }
+        .footer div {
+            background: var(--blue);
+            width: 130px;
+            height: 50%;
+            border-radius: 20px 20px 0 0;
+            display: flexbox;
+            justify-content: center;
+        }
+        .footer div:hover img { /*para que cuando apretes el spiiederman se agrande */
+           cursor: pointer; /*para que aparezca la manito*/
+           transform: translateY(-20px) scale(1.1); /*para que suba*/
+           transition: tranform 0.3s ease-in-out; /*para que no sea tan brusco*/
+
+        }
+        .footer div img {
+            width: 160px;
+            position: absolute;
+            bottom: 30px;
+
+            transform: translateY(0px) scale(1); /*para que vuelva*/
+           transition: tranform 0.5s ease-in-out; /*para que no sea tan brusco*/
+        }
+        .loader {
+            background-color: white; /*para el color del fondo*/
+            width: 100%; /*esto es el ancho*/
+            height: 100%; /*esto es el alto*/
+            display: flex; /*para acomodar las pelotitas de carga*/
+            align-items: center; /*para que queden las pelotitas de carga alineadas*/
+            justify-content: center; /*para que queden las pelotitas de carga en el medio */
+            position: absolute; /*elemento mas cerca al usuario*/
+            z-index: 3; 
+
+            animation: loader 2s linear forwards; /*para que se cargue en 2 segundos */
+        }
+       
+        @keyframes loader{ /*esto es para manear las animaciones, aca serian lo de loader que es para supuesta pantalla de carga sin las bolitas. se pone que es lo que pasa en los tiempos que serian los 2 segundos*/
+            0% { /*esto lo separamos en 3, en primer lugar queremos que aparezca, */
+                opacity: 1;
+                visibility: visible;
+            }
+            95% { /*aca se mantiene un poquito*/
+                opacity: 1;
+                visibility: visible;
+            } 
+            100% { /*aca desaparece*/
+                opacity: 0;
+                visibility: hidden; /*es para que se desaparezca pueda hacer clic en la segunda capa*/
+            }
+        }
+
+        .loader div { /*Esto es para hacer los elementos del loader, que serian las 3 pelotitas de carga */
+            background-color: var(--blue); /*color de las pelotitas*/
+            width: 40px; /*tamaño de las pelotitas*/
+            height: 40px; /*tamaño de las pelotitas*/
+            border-radius: 50%; /*radio de las pelotitas*/
+            margin: 10px; /*para que las bolitas queden un poco separadas unas de otras*/
+
+            transform: scale(0);
+
+            animation: scaling 2s ease-in-out infinite; /*para hacer que crezcan, para la aceleracion, para que se repita */
+        }
+        /*Esto es para que se vea como si estubiera cargando */
+        .loader div:nth-child(1) { /*Esto es para solo la primer bolita*/
+            animation-delay: 0.2s ;
+        }
+        .loader div:nth-child(2) { /*Esto es para solo la segunda bolita*/
+            animation-delay: 0.4s ;
+        }
+        .loader div:nth-child(3) { /*Esto es para solo la tercer bolita*/
+            animation-delay: 0.6s ;
+        }
+
+        @keyframes scaling { /*esto es para la animacion de las bolitas de la supuesta pantalla de carga*/
+            0%, 100% { /*para que se achique*/
+                transform: scale(0.2);
+            }
+            40%, 50%{ /*para que se agranden*/
+                transform: scale(1);
+            }
+        }
+        .hidden { /*esto es para ocultarlo*/
+            display: none !important;
+        }
+        .visible { /*esto es para mostrarlo*/
+            display: grid !important;
+        }
+        .modal { /*esto es para cuando apreto los legos*/
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            position: absolute;
+            z-index: 4;
+
+            display: grid;
+            place-items: center;
+        }
+        .modal_content{
+            background: white;
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="page">
+        <!--Main content--> <!--aca estoy poniendo los "botones" que van a estar ubicados arriba a la izquierda-->
+        <section class="container">
+            <nav class="navbar">
+                <div class="navbar_content">
+                    <img src="https://i.ibb.co/MMmDPXN/lego.png" alt="logo de lego">
+                    <ul>
+                        <li> <a href="/">Exclusivos</a></li>
+                        <li> <a href="/">Nuevos</a></li>
+                        <li> <a href="/">Gift cards</a></li>
+                        <li> <a href="/">Find a store</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+
+        <section class="main-content">
+            <p>Diseña tu</p>
+            <h1>Super heroe!!</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum voluptatem temporibus et illo
+                perspiciatis accusantium sapiente expedita aut odio magni, modi hic beatae placeat saepe,
+                blanditiis architecto veniam facilis necessitatibus. 
+             </p>
+        </section>
+
+
+        <section class="side-content">
+            <div></div> <!--ESTE DIV LO PONGO ACA ARRIBA POR QUE ASI EL FONDO AMARILLA QUE TIENE SUPERMAN ME QUEDA ATRAS -->
+            <p>Superman</p>
+            <img src="https://i.ibb.co/x16pz1x/super-man.png" alt="imagen de lego superman">
+        </section>
+
+        <section class="footer">
+            <div id="button1">
+                <img src="https://i.ibb.co/tKWqw8J/spiderman.png" alt="lego spiderman">
+            </div>
+            <div>
+                <img src="https://i.ibb.co/Xzsdvgg/robin.png" alt="lego robin">
+            </div>
+            <div>
+                <img src="https://i.ibb.co/M18p91c/batman.webp" alt="lego batman">
+            </div>
+        </section>
+        </section>
+
+            <!--Loader--> <!--aca la pagina apenas la abris se va a ver toda blanca y se va a cargar con tres bolitas-->
+        <section class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+        <!--Modal-->
+        <section class="modal hidden">
+            <div class="modal_content">
+                <img class="modal_container--close" src="https://img.icons8.com/plumpy/50/000000/macos-close.png" alt="close"/>
+                
+            </div>
+
+        </section>
+    </div>
+    
+</body>
+
+<script> /*esto es para el js, es butom por que los legos serian los botones */
+    const modal = document.querySelector(".modal")
+    const button1 = document.querySelector("#button1")
+    const closeButton = document.querySelector(".modal_content--close")
+
+    button1.addEventListener("click", () =>{
+        modal.classList.remove("hidden")
+        modal.classList.add("visible")
+    })
+
+    closeButton.addEventListener("click", () =>{
+        console.log("here")
+        modal.classList.add("hidden")
+        modal.classList.remove("visible")
+    })
+</script>
+</html>
